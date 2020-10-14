@@ -14,7 +14,7 @@
 class: center, middle, inverse, title-slide
 
 # Data Visualization with ggplot2
-## R-Ladies St. Louis
+## R-Ladies Bangalore | WAQSA
 ### Meenakshi Kushwaha, October 2020
 
 ---
@@ -1128,77 +1128,7 @@ ggplot(data = diamonds) +
 ```
 
 ![](index_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
----
-## Position Adjustments
 
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, 
-*                        colour = cut))
-```
-
-![](index_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
-
----
-## Position Adjustments
-
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, 
-*                        fill = cut))
-```
-
-![](index_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
----
-## Position Adjustments
-
-
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, 
-*                        fill = clarity))
-```
-
-![](index_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
----
-### `position="identity"`
-- places each object exactly where it falls in the context of the graph
-- useful if bars are made transparent
-
-
-```r
-ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + 
-* geom_bar(fill = NA,
-*          position = "identity")
-```
-
-![](index_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
-???
-The identity position adjustment is more useful for 2d geoms, like points, where it is the default.
----
-### `position="fill"`
-- makes each set of stacked bars the same height
-- Useful for comparing proportions across groups
-
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), 
-*          position = "fill")
-```
-
-![](index_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
----
-### `position="dodge"`
-- Places objects next to each other
-- Useful for comparing individual values
-
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), 
-*          position = "dodge")
-```
-
-![](index_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ---
 #Scales
 .footnote[Source: ggplot2 workshop by @thomasp85]
@@ -1221,7 +1151,7 @@ ggplot(mpg) +
   geom_point(aes(x = displ, y = hwy, colour = class))
 ```
 
-![](index_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ---
 # Scales
 
@@ -1232,7 +1162,7 @@ ggplot(mpg) +
 * scale_colour_brewer(type = 'qual')
 ```
 
-![](index_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 #Scales
@@ -1244,7 +1174,7 @@ ggplot(mpg) +
 * scale_y_continuous(trans = 'log10')
 ```
 
-![](index_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 ---
 # Facets
 .footnote[Source: ggplot2 workshop by @thomasp85]
@@ -1547,114 +1477,6 @@ ggplot(data = mpg,
 
 
 ---
-
-count: false
- 
-#Coordinate Systems
-.panel1-coord2-auto[
-
-```r
-*ggplot(data = mpg,
-*      mapping = aes(
-*        x = class,
-*        y = hwy))
-```
-]
- 
-.panel2-coord2-auto[
-![](index_files/figure-html/coord2_auto_01_output-1.png)&lt;!-- --&gt;
-]
-
----
-count: false
- 
-#Coordinate Systems
-.panel1-coord2-auto[
-
-```r
-ggplot(data = mpg,
-       mapping = aes(
-         x = class,
-         y = hwy)) +
-* geom_point(position = "jitter")
-```
-]
- 
-.panel2-coord2-auto[
-![](index_files/figure-html/coord2_auto_02_output-1.png)&lt;!-- --&gt;
-]
-
----
-count: false
- 
-#Coordinate Systems
-.panel1-coord2-auto[
-
-```r
-ggplot(data = mpg,
-       mapping = aes(
-         x = class,
-         y = hwy)) +
-  geom_point(position = "jitter") +
-* coord_polar()
-```
-]
- 
-.panel2-coord2-auto[
-![](index_files/figure-html/coord2_auto_03_output-1.png)&lt;!-- --&gt;
-]
-
----
-count: false
- 
-#Coordinate Systems
-.panel1-coord2-auto[
-
-```r
-ggplot(data = mpg,
-       mapping = aes(
-         x = class,
-         y = hwy)) +
-  geom_point(position = "jitter") +
-  coord_polar()
-```
-]
- 
-.panel2-coord2-auto[
-![](index_files/figure-html/coord2_auto_04_output-1.png)&lt;!-- --&gt;
-]
-
-&lt;style&gt;
-.panel1-coord2-auto {
-  color: black;
-  width: 38.6060606060606%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel2-coord2-auto {
-  color: black;
-  width: 59.3939393939394%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel3-coord2-auto {
-  color: black;
-  width: NA%;
-  hight: 33%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-&lt;/style&gt;
-
-
-???
-coord_polar() interprets x and y axes as radius and angle
----
 # Themes
 .footnote[Source: ggplot2 workshop by @thomasp85]
 .pull-right[![](images/tom_theme.png)]
@@ -1770,7 +1592,7 @@ ggplot(data=mpg, aes(x=displ, y=hwy))+geom_point()+
   )
 ```
 
-![](index_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ???
 Check out `ggthemes` package for many more theme options
@@ -2003,7 +1825,7 @@ ggplot(data=mpg)+
 
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2018,7 +1840,7 @@ count: false
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2034,7 +1856,7 @@ myplot &lt;- ggplot(data=mpg)+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2051,7 +1873,7 @@ myplot &lt;- ggplot(data=mpg)+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2069,7 +1891,7 @@ myplot &lt;- ggplot(data=mpg)+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2088,7 +1910,7 @@ myplot &lt;- ggplot(data=mpg)+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2109,7 +1931,7 @@ myplot &lt;- ggplot(data=mpg)+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2131,7 +1953,7 @@ myplot+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2154,7 +1976,7 @@ myplot+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2178,7 +2000,7 @@ myplot+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2203,7 +2025,7 @@ myplot+
 ---
 count: false
  
-##GGPLOT object
+##ggplot object
 .panel1-lables2-auto[
 
 ```r
@@ -2254,11 +2076,6 @@ myplot+
 &lt;/style&gt;
 
 
-
----
-
-class:inverse, middle, center
-#Exercises
 ---
 # A `ggplot` template
 `ggplot(data = &lt;DATA&gt;) + `  
@@ -2272,43 +2089,16 @@ class:inverse, middle, center
   
 *In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function.*
 ---
-# The layered grammar of graphics
-.footnote[R for Data Science by Hadley WickHam]
 
-![](images/visualization-grammar-1.png)
----
-# The layered grammar of graphics
-.footnote[R for Data Science by Hadley WickHam]
-
-![](images/visualization-grammar-2.png)
-
----
-# The layered grammar of graphics
-.footnote[R for Data Science by Hadley WickHam]
-
-![](images/visualization-grammar-3.png)
----
 class: inverse, middle, center
 
 # BEYOND ggplot2
+How to better compose, annotate and highlight your plots
+
 ---
-# Plot Composition
-.pull-right[![](images/patch.png)]
-
-.pull-left[
-- [`patchwork`](https://github.com/thomasp85/patchwork) package
-
-- Combining different types of plots in a single layout
-
-
-
-```r
-install.packages("patchwork") 
-library(patchwork)
-```
-]
+![](images/horst_patchwork_1.jpg)
 ---
-# Plot Composition
+# Plot Composition with `patchwork`
 
 
 ```r
@@ -2319,30 +2109,25 @@ p2 &lt;- ggplot(mpg) + geom_boxplot(aes(displ, hwy, group = class)) # second plo
 p1+p2 # combined plot output using patchwork package
 ```
 
-![](index_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 ---
-# Plot Composition
+# Plot Composition with `patchwork`
 
 ```r
 p3 &lt;- ggplot(mpg, aes(displ, hwy))+geom_point(aes(color=class))+geom_smooth(aes(color=class))
 p4 &lt;- ggplot(mpg) + geom_bar(aes(class))
-
-(p1 | p2 | p3) /
-      p4
+*p5&lt;-(p1 | p2 | p3) / p4
+p5+plot_annotation('This is a title', caption = 'Source: mpg dataset',
+                   theme = theme(plot.caption = element_text(size = 14),
+                                 plot.title = element_text(size = 18)))
 ```
 
-![](index_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
-
+![](index_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ---
-# Plot Annotation
-![](images/ggforce.jpeg)
-![](images/ggrepel.png)
-- can add annotations by code
-
-- packages `ggrepel` and `ggforce`
+![](images/horst_ggrepel.jpeg)
 ---
-# Plot Annotation
+# Plot Annotation without `ggrepel`
 
 ```r
 ggplot(mpg[1:20,], aes(x = displ, y = hwy)) +
@@ -2350,9 +2135,9 @@ ggplot(mpg[1:20,], aes(x = displ, y = hwy)) +
 * geom_text(aes(label = model))
 ```
 
-![](index_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 ---
-# Plot Annotation
+# Plot Annotation with `ggrepel`
 
 ```r
 *library(ggrepel)
@@ -2361,43 +2146,305 @@ ggplot(mpg[1:20,], aes(x = displ, y = hwy)) +
 * geom_text_repel(aes(label = model))
 ```
 
-![](index_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](index_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 ---
-# Plot Annotation
+![](images/horst_gghighlight.jpeg)
+---
+
+
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
 
 ```r
-*library(ggforce)
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point()+
-* geom_mark_ellipse(
-    aes(filter = class  == "2seater",
-        label = '"2 seater"/Sports Cars',
-        description = 'Sports cars have large engines but small bodies, which improves their mileage')) 
+*library(gghighlight)
 ```
+]
+ 
+.panel2-highlight1-auto[
 
-![](index_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
+
+```r
+library(gghighlight)
+*ggplot(airquality)
+```
+]
+ 
+.panel2-highlight1-auto[
+![](index_files/figure-html/highlight1_auto_02_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
+
+```r
+library(gghighlight)
+ggplot(airquality)+
+* geom_line(aes(Day, Temp,
+*               color=factor(Month)))
+```
+]
+ 
+.panel2-highlight1-auto[
+![](index_files/figure-html/highlight1_auto_03_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
+
+```r
+library(gghighlight)
+ggplot(airquality)+
+  geom_line(aes(Day, Temp,
+                color=factor(Month)))+
+* theme_bw()
+```
+]
+ 
+.panel2-highlight1-auto[
+![](index_files/figure-html/highlight1_auto_04_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
+
+```r
+library(gghighlight)
+ggplot(airquality)+
+  geom_line(aes(Day, Temp,
+                color=factor(Month)))+
+  theme_bw()+
+* labs(x = "Day of Month",
+*      y = "Temperature")
+```
+]
+ 
+.panel2-highlight1-auto[
+![](index_files/figure-html/highlight1_auto_05_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
+
+```r
+library(gghighlight)
+ggplot(airquality)+
+  geom_line(aes(Day, Temp,
+                color=factor(Month)))+
+  theme_bw()+
+  labs(x = "Day of Month",
+       y = "Temperature") +
+* theme(legend.position = "top")
+```
+]
+ 
+.panel2-highlight1-auto[
+![](index_files/figure-html/highlight1_auto_06_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
+
+```r
+library(gghighlight)
+ggplot(airquality)+
+  geom_line(aes(Day, Temp,
+                color=factor(Month)))+
+  theme_bw()+
+  labs(x = "Day of Month",
+       y = "Temperature") +
+  theme(legend.position = "top")+
+* gghighlight(max(Temp) &gt; 93,
+*             label_key = Month)
+```
+]
+ 
+.panel2-highlight1-auto[
+![](index_files/figure-html/highlight1_auto_07_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+#Highlighting geoms
+.panel1-highlight1-auto[
+
+```r
+library(gghighlight)
+ggplot(airquality)+
+  geom_line(aes(Day, Temp,
+                color=factor(Month)))+
+  theme_bw()+
+  labs(x = "Day of Month",
+       y = "Temperature") +
+  theme(legend.position = "top")+
+  gghighlight(max(Temp) &gt; 93,
+              label_key = Month)
+```
+]
+ 
+.panel2-highlight1-auto[
+![](index_files/figure-html/highlight1_auto_08_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-highlight1-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-highlight1-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-highlight1-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
 ---
 # What next?
 
 - `ggplot2` [extensions](https://exts.ggplot2.tidyverse.org/gallery/)
 - Rstudio [cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - BBC Visual and Data Journalism [cookbook for R graphics](https://bbc.github.io/rcookbook/)
-  
-  
 ![](images/bbc.png)
 ---
-# More Insipiration
 
-- [Tidy Tuesday Project](https://github.com/rfordatascience/tidytuesday )
+class:middle, center
 
-- "#TidyTuesday" on Twitter
-
-- [Youtube screencasts](https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ) by David Robinson
-
-![](images/tt_logo.png)
+#`openair` package
 
 ---
+# Input data type
+- The date/time field should be named `date` 
+- The wind speed and wind direction should be named `ws` and `wd` respectively
+- If you have data from more than one site include a column named `site`
+???
+The principal reason for insisting on specific input data
+format is that there will be less that can go wrong and it is easier to write code for a
+more limited set of conditions.
+---
+#`summaryPlot`
 
+```r
+library(openair) # load openair
+data(mydata) ## make sure data that comes with openair is loaded
+summaryPlot(mydata[,1:5]) # summary of nox and wind data
+```
+
+```
+    date1     date2        ws        wd       nox       no2 
+"POSIXct"  "POSIXt" "numeric" "integer" "integer" "integer" 
+```
+
+![](index_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+???
+ The plots in the left panel show the time series data, where blue shows the presence of data and red missing
+data. The daily mean values are also shown in pale yellow scaled to cover the range in the data
+from zero to the maximum daily value. As such, the daily values are indicative of an overall
+trend rather than conveying quantitative information. For each pollutant, the overall summary
+statistics are given. For each year the percentage data capture is shown in green font. The
+panels on the right show the distribution of each species using a histogram plot
+---
+# `windRose`
+
+```r
+library(openair)
+windRose(mydata)
+```
+
+![](index_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+---
+#`windRose`
+Use `type=` to group your data for plotting
+.pull-left[
+
+```r
+library(openair)
+*windRose(mydata, type = "year",
+         layout = c(4, 2))
+```
+
+![](index_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+
+--
+.pull-right[
+
+```r
+library(openair)
+*windRose(mydata, type = "pm10",
+         layout = c(4, 1))
+```
+
+![](index_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+]
+---
+#`calendarPlot`
+.pull-left[
+
+```r
+library(openair)
+calendarPlot(mydata, pollutant = "o3", 
+             year =2003)
+```
+
+![](index_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+]
+--
+
+.pull-right[
+
+```r
+library(openair)
+calendarPlot(mydata, pollutant = "o3", 
+*            year = 2003, annotate = "ws")
+```
+
+![](index_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+---
+class: middle, center
+###Explore more using the `openair` package manual  
+https://davidcarslaw.com/files/openairmanual.pdf
+---
 #Resources Used
 
 - [`flipbookr`](https://github.com/EvaMaeRey/flipbookr) package by Gina Reynolds

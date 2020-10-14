@@ -1,6 +1,6 @@
 ---
 title: "Data Visualization with ggplot2"
-subtitle: "R-Ladies St. Louis"
+subtitle: "R-Ladies Bangalore | WAQSA"
 author: "Meenakshi Kushwaha, October 2020"
 output:
   xaringan::moon_reader:
@@ -461,59 +461,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = stat(prop), #<<
                          group = 1))
 ```
----
-## Position Adjustments
-```{r fig.height=5}
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, 
-                         colour = cut)) #<<
-```
 
----
-## Position Adjustments
-```{r fig.height=5}
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, 
-                         fill = cut)) #<<
-```
----
-## Position Adjustments
-
-```{r fig.height=5}
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, 
-                         fill = clarity)) #<<
-```
----
-### `position="identity"`
-- places each object exactly where it falls in the context of the graph
-- useful if bars are made transparent
-
-```{r fig.height=5}
-ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + 
-  geom_bar(fill = NA, #<<
-           position = "identity") #<<
-```
-???
-The identity position adjustment is more useful for 2d geoms, like points, where it is the default.
----
-### `position="fill"`
-- makes each set of stacked bars the same height
-- Useful for comparing proportions across groups
-```{r fig.height=5}
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), 
-           position = "fill") #<<
-```
----
-### `position="dodge"`
-- Places objects next to each other
-- Useful for comparing individual values
-```{r fig.height=5}
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), 
-           position = "dodge") #<<
-```
 ---
 #Scales
 .footnote[Source: ggplot2 workshop by @thomasp85]
@@ -614,19 +562,6 @@ ggplot(data = mpg,
 ```
 `r chunk_reveal("coord", break_type = "auto", title="#Coordinate Systems")`
 ---
-```{r coord2, include=FALSE, echo=TRUE}
-ggplot(data = mpg, 
-       mapping = aes(
-         x = class, 
-         y = hwy)) + #BREAK
-  geom_point(position = "jitter") + #BREAK2
-  coord_polar()
-
-```
-`r chunk_reveal("coord2", break_type = "auto", title="#Coordinate Systems")`
-???
-coord_polar() interprets x and y axes as radius and angle
----
 # Themes
 .footnote[Source: ggplot2 workshop by @thomasp85]
 .pull-right[![](images/tom_theme.png)]
@@ -698,12 +633,7 @@ myplot+#BREAK3
   labs(caption="Source:mpg dataset")
 ```
 
-`r chunk_reveal("lables2", break_type = "auto", title="##GGPLOT object")`
-
----
-
-class:inverse, middle, center
-#Exercises
+`r chunk_reveal("lables2", break_type = "auto", title="##ggplot object")`
 ---
 # A `ggplot` template
 `ggplot(data = <DATA>) + `  
@@ -717,42 +647,16 @@ class:inverse, middle, center
   
 *In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function.*
 ---
-# The layered grammar of graphics
-.footnote[R for Data Science by Hadley WickHam]
 
-![](images/visualization-grammar-1.png)
----
-# The layered grammar of graphics
-.footnote[R for Data Science by Hadley WickHam]
-
-![](images/visualization-grammar-2.png)
-
----
-# The layered grammar of graphics
-.footnote[R for Data Science by Hadley WickHam]
-
-![](images/visualization-grammar-3.png)
----
 class: inverse, middle, center
 
 # BEYOND ggplot2
+How to better compose, annotate and highlight your plots
+
 ---
-# Plot Composition
-.pull-right[![](images/patch.png)]
-
-.pull-left[
-- [`patchwork`](https://github.com/thomasp85/patchwork) package
-
-- Combining different types of plots in a single layout
-
-
-```{r eval=FALSE}
-install.packages("patchwork") 
-library(patchwork)
-```
-]
+![](images/horst_patchwork_1.jpg)
 ---
-# Plot Composition
+# Plot Composition with `patchwork`
 
 ```{r, fig.height=5, fig.width=12 }
 library(ggplot2)
@@ -763,31 +667,26 @@ p1+p2 # combined plot output using patchwork package
 ```
 
 ---
-# Plot Composition
+# Plot Composition with `patchwork`
 ```{r, fig.height=5, fig.width=12, warning=FALSE, message=FALSE}
 p3 <- ggplot(mpg, aes(displ, hwy))+geom_point(aes(color=class))+geom_smooth(aes(color=class))
 p4 <- ggplot(mpg) + geom_bar(aes(class))
-
-(p1 | p2 | p3) /
-      p4
+p5<-(p1 | p2 | p3) / p4 #<<
+p5+plot_annotation('This is a title', caption = 'Source: mpg dataset',
+                   theme = theme(plot.caption = element_text(size = 14),
+                                 plot.title = element_text(size = 18)))
 ```
-
 ---
-# Plot Annotation
-![](images/ggforce.jpeg)
-![](images/ggrepel.png)
-- can add annotations by code
-
-- packages `ggrepel` and `ggforce`
+![](images/horst_ggrepel.jpeg)
 ---
-# Plot Annotation
+# Plot Annotation without `ggrepel`
 ```{r fig.height=5}
 ggplot(mpg[1:20,], aes(x = displ, y = hwy)) +
   geom_point() +
   geom_text(aes(label = model)) #<<
 ```
 ---
-# Plot Annotation
+# Plot Annotation with `ggrepel`
 ```{r fig.height=5}
 library(ggrepel) #<<
 ggplot(mpg[1:20,], aes(x = displ, y = hwy)) +
@@ -795,38 +694,107 @@ ggplot(mpg[1:20,], aes(x = displ, y = hwy)) +
   geom_text_repel(aes(label = model)) #<<
 ```
 ---
-# Plot Annotation
-```{r fig.height=4}
-library(ggforce) #<<
-ggplot(mpg, aes(x = displ, y = hwy)) +
-  geom_point()+
-  geom_mark_ellipse( #<<
-    aes(filter = class  == "2seater",
-        label = '"2 seater"/Sports Cars',
-        description = 'Sports cars have large engines but small bodies, which improves their mileage')) 
+![](images/horst_gghighlight.jpeg)
+---
+```{r highlight1, include=FALSE, echo=TRUE}
+library(gghighlight)
+ggplot(airquality)+ #BREAK
+  geom_line(aes(Day, Temp, 
+                color=factor(Month)))+
+  theme_bw()+
+  labs(x = "Day of Month", 
+       y = "Temperature") +
+  theme(legend.position = "top")+
+  gghighlight(max(Temp) > 93, 
+              label_key = Month)
+  
 ```
+
+`r chunk_reveal("highlight1", break_type = "auto", title="#Highlighting geoms")`
 ---
 # What next?
 
 - `ggplot2` [extensions](https://exts.ggplot2.tidyverse.org/gallery/)
 - Rstudio [cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
 - BBC Visual and Data Journalism [cookbook for R graphics](https://bbc.github.io/rcookbook/)
-  
-  
 ![](images/bbc.png)
 ---
-# More Insipiration
 
-- [Tidy Tuesday Project](https://github.com/rfordatascience/tidytuesday )
+class:middle, center
 
-- "#TidyTuesday" on Twitter
-
-- [Youtube screencasts](https://www.youtube.com/channel/UCeiiqmVK07qhY-wvg3IZiZQ) by David Robinson
-
-![](images/tt_logo.png)
+#`openair` package
 
 ---
+# Input data type
+- The date/time field should be named `date` 
+- The wind speed and wind direction should be named `ws` and `wd` respectively
+- If you have data from more than one site include a column named `site`
+???
+The principal reason for insisting on specific input data
+format is that there will be less that can go wrong and it is easier to write code for a
+more limited set of conditions.
+---
+#`summaryPlot`
+```{r fig.height=5, fig.width=7}
+library(openair) # load openair
+data(mydata) ## make sure data that comes with openair is loaded
+summaryPlot(mydata[,1:5]) # summary of nox and wind data
+```
+???
+ The plots in the left panel show the time series data, where blue shows the presence of data and red missing
+data. The daily mean values are also shown in pale yellow scaled to cover the range in the data
+from zero to the maximum daily value. As such, the daily values are indicative of an overall
+trend rather than conveying quantitative information. For each pollutant, the overall summary
+statistics are given. For each year the percentage data capture is shown in green font. The
+panels on the right show the distribution of each species using a histogram plot
+---
+# `windRose`
+```{r fig.height=5, fig.width=5}
+library(openair)
+windRose(mydata)
+```
+---
+#`windRose`
+Use `type=` to group your data for plotting
+.pull-left[
+```{r fig.height=4, fig.width=6}
+library(openair)
+windRose(mydata, type = "year", #<<
+         layout = c(4, 2))
+```
+]
 
+--
+.pull-right[
+```{r fig.height=4, fig.width=6}
+library(openair)
+windRose(mydata, type = "pm10", #<<
+         layout = c(4, 1))
+```
+]
+---
+#`calendarPlot`
+.pull-left[
+```{r fig.height=5.5}
+library(openair)
+calendarPlot(mydata, pollutant = "o3", 
+             year =2003)
+```
+]
+--
+
+.pull-right[
+```{r fig.height=5.5}
+library(openair)
+calendarPlot(mydata, pollutant = "o3", 
+             year = 2003, annotate = "ws") #<<
+```
+]
+---
+class: middle, center
+###Explore more using the `openair` package manual  
+https://davidcarslaw.com/files/openairmanual.pdf
+---
 #Resources Used
 
 - [`flipbookr`](https://github.com/EvaMaeRey/flipbookr) package by Gina Reynolds
